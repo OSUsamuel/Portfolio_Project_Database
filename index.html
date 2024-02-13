@@ -1,1 +1,71 @@
-Hello world from space
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+
+    <a href="#">Add Member</a>
+    <p>&nbsp;</p>
+    <div id="members">
+        <p><strong>Our Members</strong></p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+    <div id="insert" style="display: block">
+        <form id="addMember">
+            <legend><strong>Add Member</strong></legend>
+              <fieldset class="fields">
+                <label> Name </label> <input type="text" name="name">
+                <label> Email </label> <input type="email" name="email">
+              </fieldset>
+              <input class="btn" type="submit" id="addMember" value="Add a Member">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+        <form id="deleteMember">
+            <legend><strong>Delete Member</strong></legend>
+              <fieldset class="fields">
+                <label>Enter Member ID</label> <input type="text" name="memberID">
+              </fieldset>
+              <input class="btn" type="submit" id="deleteMember" value="Delete a Member">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+
+    <p>&nbsp;</p>
+    <div id="update" style="display: block">
+        <form id="updateMember">
+            <legend><strong>Update member</strong></legend>
+                <fieldset class="fields">
+                  <label> Name </label> <input type="text"  name="name">
+                  <label> Email </label> <input type="email" name="email">
+                  </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveMember" value="Save Update Member">
+                <input class="btn" type="button" value="cancel" >
+        </form> 
+      </div><!-- update -->
+
+
+    
+
+    </main>
+	<script src="index.js"></script>
+  </body>
+</html>
