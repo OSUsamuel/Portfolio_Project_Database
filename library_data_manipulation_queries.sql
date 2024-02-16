@@ -34,7 +34,7 @@ DELETE FROM Members WHERE (first_name = :first_name_input) and (last_name = last
 
 
 -- Delete Book -- 
-DELETE FROM Books WHERE (ISBN = :ISBN);
+DELETE FROM Books WHERE (ISBN = :ISBN_input);
 
 -- Update member --
 UPDATE Members
