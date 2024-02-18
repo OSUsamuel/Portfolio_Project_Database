@@ -2,7 +2,7 @@
 
 
 -- Gets all member information --
-SELECT memeberID, first_name and last_name as name, email from Members;
+SELECT memberID, CONCAT(firstName ,  " ", lastName  ) as name, email from Members;
 
 
 -- Gets all book information --

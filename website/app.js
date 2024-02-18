@@ -27,8 +27,7 @@ var db = require('./database/db-connector')
 
 app.get('/', function(req, res)
     {  
-        let query1 = "SELECT memeberID, first_name and last_name as name, email from Members;";               // Define our query
-
+        let query1 = "SELECT memberID, CONCAT(firstName ,  \" \", lastName) as name, email from Members;";                        // Define our query
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
             res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
