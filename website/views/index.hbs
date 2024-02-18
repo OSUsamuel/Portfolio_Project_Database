@@ -1,0 +1,72 @@
+ <main>
+
+      <div class="topnav">
+        <a class="active" href="index.html">Home</a>
+        <a href="books_page.html">Books</a>
+      </div>
+
+    <p>&nbsp;</p>
+    <div id="members">
+        <p><strong>Our Members</strong></p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+
+            <tr>
+              <td>{{this.memberID}}</td>
+              <td><a href = "BorrowingTransaction.html">{{this.name}}</a></td>
+              <td>{{this.email}}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <p>&nbsp;</p>
+    <div id="insert" style="display: block">
+        <form id="addMember">
+            <legend><strong>Add Member</strong></legend>
+              <fieldset class="fields">
+                <label> Name </label> <input type="text" name="name">
+                <label> Email </label> <input type="email" name="email">
+              </fieldset>
+              <input class="btn" type="submit" id="addMember" value="Add a Member">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+
+    
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+        <form id="deleteMember">
+            <legend><strong>Delete Member</strong></legend>
+              <fieldset class="fields">
+                <label>Enter Member ID</label> <input type="text" name="memberID">
+              </fieldset>
+              <input class="btn" type="submit" id="deleteMember" value="Delete a Member">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+
+    <p>&nbsp;</p>
+    <div id="update" style="display: block">
+        <form id="updateMember">
+            <legend><strong>Update member</strong></legend>
+                <fieldset class="fields">
+                  <label> Name </label> <input type="text"  name="name">
+                  <label> Email </label> <input type="email" name="email">
+                  </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveMember" value="Save Update Member">
+                <input class="btn" type="button" value="cancel" >
+        </form> 
+      </div><!-- update -->
+
+
+
+
+  
+    
+
+    </main>
