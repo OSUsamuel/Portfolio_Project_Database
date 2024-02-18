@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Website</title>
+    <title>Library database</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
     <main>
 
-    <a href="#">Add Member</a>
+      <div class="topnav">
+        <a class="active" href="index.html">Home</a>
+        <a href="books_page.html">Books</a>
+      </div>
+
     <p>&nbsp;</p>
     <div id="members">
         <p><strong>Our Members</strong></p>
@@ -21,8 +25,15 @@
                 <th>Name</th>
                 <th>Email</th>
             </tr>
+
+            <tr>
+              <td>78</td>
+              <td><a href = "BorrowingTransaction.html">When you click on me I'll display html page for transaction</a></td>
+              <td>Imtired@gmail.com</td>
+            </tr>
         </table>
     </div>
+
 
     <p>&nbsp;</p>
     <div id="insert" style="display: block">
@@ -36,6 +47,7 @@
               <input class="btn" type="button" value="cancel">
         </form> <!--add new member-->
     </div><!-- insert -->
+
     
     <p>&nbsp;</p>
     <div id="delete" style="display: block">
@@ -64,32 +76,7 @@
 
 
 
-      <p>&nbsp;</p>
-      <div id="insert" style="display: block">
-          <form id="addBook">
-              <legend><strong>Add Book</strong></legend>
-                <fieldset class="fields">
-                  <label> Title </label> <input type="text" name="name">
-                  <label> ISBN </label> <input type="text" name="ISBN">
-                  <label> Author/s </label> <input type="text" name="author_name"> 
-                </fieldset>
-                <input class="btn" type="submit" id="addMember" value="Add a Member">
-                <input class="btn" type="button" value="cancel">
-          </form> <!--add new member-->
-      </div><!-- insert -->
 
-
-      <p>&nbsp;</p>
-      <div id="delete" style="display: block">
-          <form id="deleteBook">
-              <legend><strong>Delete Book</strong></legend>
-                <fieldset class="fields">
-                  <label>Enter Book ID</label> <input type="text" name="BookID">
-                </fieldset>
-                <input class="btn" type="submit" id="deleteBook" value="Delete a Book">
-                <input class="btn" type="button" value="cancel">
-          </form> <!--add new member-->
-      </div><!-- insert -->
   
     
 
