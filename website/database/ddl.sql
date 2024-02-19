@@ -30,7 +30,7 @@ CREATE OR REPLACE TABLE BookAuthors(
     bookID          INT,
     authorID        INT,
     PRIMARY KEY(bookID, authorID),
-    FOREIGN KEY(bookID) REFERENCES Books(bookID),
+    FOREIGN KEY(bookID) REFERENCES Books(bookID),ml
     FOREIGN KEY(authorID) REFERENCES Authors(authorID)
 );
 

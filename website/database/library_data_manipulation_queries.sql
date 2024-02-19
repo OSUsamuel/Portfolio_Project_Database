@@ -10,7 +10,7 @@ Select bookID, title, ISBN from Books;
 
 
 -- Gets Author information --
-Select authorID, first_name, last_name from Authors;
+Select authorID, firstName, lastName from Authors;
 
 -- Gets transaction information --
 Select transactionID, dateBorrowed, dateDue, title, first_name and last_name as Author, member from BorrowingTransactions
@@ -22,7 +22,7 @@ INNER JOIN Authors ON Books.authorID = Author.authorID;
 
 -- Adds new member --
 INSERT INTO Members (first_name, last_name, email)
-VALUES (:first_name_input, :last_name_input, email_input);
+VALUES (:first_name_input, :last_name_input, :email_input);
 
 -- Adds new Book --
 INSERT INTO Books (title, authorID, ISBN)

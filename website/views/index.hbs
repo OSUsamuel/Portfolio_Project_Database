@@ -6,16 +6,17 @@
       </div>
 
     <p>&nbsp;</p>
-    <div id="members">
+    <div >
         <p><strong>Our Members</strong></p>
-        <table>
+        <table id="members_table">
             <tr>
-            {{#each data.[0]}}
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
             <th>
                 {{@key}}
             </th>
-            {{/each}}
-
+         
 
              {{#each data}}
         <tr>
@@ -30,17 +31,17 @@
 
     <p>&nbsp;</p>
     <div id="insert" style="display: block">
-        <form id="addMember">
+        <form id="addMemberFormAjax">
             <legend><strong>Add Member</strong></legend>
               <fieldset class="fields">
-                <label> Name </label> <input type="text" name="name">
-                <label> Email </label> <input type="email" name="email">
+                <label for="firstName_input"> First Name </label> <input id="firstName_input" type="text" name="firstName">
+                <label for="lastName_input"> Last Name</label> <input id="lastName_input" type="text" name = "lastName">
+                <label for="email_input"> Email </label> <input id="email_input" type="email" name="email_input">
               </fieldset>
-              <input class="btn" type="submit" id="addMember" value="Add a Member">
-              <input class="btn" type="button" value="cancel">
+              <input type="submit" >
         </form> <!--add new member-->
     </div><!-- insert -->
-
+    <script src="./js/add_member.js"></script>
     
     <p>&nbsp;</p>
     <div id="delete" style="display: block">
