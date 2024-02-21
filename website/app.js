@@ -24,7 +24,7 @@ app.use(express.static('public'))
 var db = require('./database/db-connector')
 
 
-
+app.set('view engine', 'hbs');
 
 
 // app.js - ROUTES section
@@ -34,6 +34,16 @@ app.get('/', function(req, res)
     db.pool.query(query1, function(error, rows, fields){
         res.render('index', {data: rows});
     })
+});
+
+
+
+app.get('/books', function(req,res){
+    res.render('books_page')
+});
+
+app.get('/authors', function(req,res){
+    res.render('authors_page')
 });
 
 

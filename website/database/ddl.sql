@@ -13,16 +13,26 @@ CREATE OR REPLACE TABLE Books (
     bookID          INT AUTO_INCREMENT NOT NULL,
     title           VARCHAR(120) NOT NULL,
     ISBN            INT(13) NOT NULL,
-    isCheckedOut    TINYINT(1),
+    publisherID     INT,
     PRIMARY KEY(bookID),
     UNIQUE(bookID, ISBN)
+);
+
+CREATE OR REPLACE TABLE Publishers (
+    publisherID INT AUTO_INCREMENT NOT NULL,
+    name        VARCHAR(120) NOT NULL,
+    website     VARCHAR(120) NOT NULL,
+    PRIMARY KEY(publisherID),
+
 );
 
 CREATE OR REPLACE TABLE Authors (
     authorID        INT AUTO_INCREMENT NOT NULL,
     firstName       VARCHAR(50),
     lastName        VARCHAR(50),
+    publisherID     INT, 
     PRIMARY KEY(authorID),
+    FOREIGN KEY(publisherID) REFERENCES publisherID,
     UNIQUE(authorID)
 );
 
@@ -30,8 +40,17 @@ CREATE OR REPLACE TABLE BookAuthors(
     bookID          INT,
     authorID        INT,
     PRIMARY KEY(bookID, authorID),
-    FOREIGN KEY(bookID) REFERENCES Books(bookID),ml
+    FOREIGN KEY(bookID) REFERENCES Books(bookID),
     FOREIGN KEY(authorID) REFERENCES Authors(authorID)
+);
+
+
+CREATE OR REPLACE TABLE BookMembers(
+    bookID          INT,
+    memberID        INT,
+    PRIMARY KEY(bookID, memberID),
+    FOREIGN KEY(bookID) REFERENCES Books(bookID),
+    FOREIGN KEY(memberID) REFERENCES Members(memberID)
 );
 
 
