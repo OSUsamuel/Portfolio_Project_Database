@@ -45,14 +45,6 @@ CREATE OR REPLACE TABLE BookAuthors(
 );
 
 
-CREATE OR REPLACE TABLE BookMembers(
-    bookID          INT,
-    memberID        INT,
-    PRIMARY KEY(bookID, memberID),
-    FOREIGN KEY(bookID) REFERENCES Books(bookID),
-    FOREIGN KEY(memberID) REFERENCES Members(memberID)
-);
-
 
 CREATE TABLE Members (
     memberID        INT AUTO_INCREMENT NOT NULL,
