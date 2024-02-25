@@ -47,12 +47,11 @@ INSERT INTO Publishers (name, website)
 VALUES (:name_input, :website_input);
 
 -- Adds new Author
-INSERT INTO Authors (firstName, lastName, publisherID)
-VALUES (:firstName_input, :lastName_input, (SELECT publisherID from Publishers WHERE name = :name_input));
-
+INSERT INTO Authors (firstName, lastName)
+VALUES (:firstName_input, :lastName_input);
 -- Adds new Book --
-INSERT INTO Books (title, ISBN)
-VALUES (:title_input, :ISBN_input);
+INSERT INTO Books (title, ISBN, publisherID)
+VALUES (:title_input, :ISBN_input,(SELECT publisherID from Publishers WHERE name = :name_input));
 
 
 -- Maps books to authors
@@ -63,17 +62,19 @@ VALUES((SELECT bookID FROM Books WHERE bookID=:bookID_input), (SELECT authorID F
 
 
 -- Delete Member -- 
-DELETE FROM Members WHERE (firstName = :first_name_input) and (lastName = last_name_input);
+Delete FROM BorrowingTransactions where BorrowingTransactions.memberID = :memberID_input;
+DELETE FROM Members where MemberID = :memberID_input;
+
 
 -- Delete Publisher --
 DELETE FROM Publishers WHERE (name = :name_input);
 
 
 -- Delete Book -- 
-DELETE FROM Books WHERE (ISBN = :ISBN_input)
+DELETE FROM Books WHERE (ISBN = :ISBN_input);
 DELETE FROM BookAuthors 
     WHERE
-        bookID = (SELECT bookID FROM Books WHERE (ISBN = :ISBN_input))
+        bookID = (SELECT bookID FROM Books WHERE (ISBN = :ISBN_input));
 
 
 

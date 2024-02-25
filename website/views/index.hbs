@@ -15,14 +15,27 @@
          
 
              {{#each data}}
-        <tr>
+        <tr data_value={{this.memberID}}>
             <td>{{this.memberID}}</td>
             <td>{{this.name}}</td>
             <td>{{this.email}}</td>
+            <td><button onclick="deleteMember({{this.memberID}})">Delete</button></td>
         </tr>
         {{/each}}
         </table>
+        <script src="./js/delete_member.js"></script>
     </div>
+
+
+    <h2>Search Using an HTML Form</h2>
+<p>Search by last name using the field below. Partial last names are OK too!</p>
+<form id="search_person" method='GET' action='/'>
+    <label for="lastName_input">Search by Last Name: </label>
+    <input type="text" name="lastName" id="input-lastName-search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
 
 
     <p>&nbsp;</p>
