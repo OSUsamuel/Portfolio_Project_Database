@@ -132,6 +132,40 @@ app.delete('/delete-member-ajax/', function(req,res,next){
   })});
 
 
+  app.put('/put-member-ajax', function(req,res,next){
+    let data = req.body;
+    console.log(data)
+  
+    let memberID = parseInt(data.memberID)
+ 
+    console.log(data.firstName)
+    let queryUpdateMember = `UPDATE Members SET firstName = '${data.firstName}', lastName = '${data.lastName}', email = '${data.email}' WHERE (memberID = '${memberID}');`
+    let selectMembers = `select memberID, CONCAT('${data.firstName}' ,  \" \", '${data.lastName}'  ) as name, email from Members where (memberID = '${memberID}')`
+          // Run the 1st query
+          db.pool.query(queryUpdateMember, function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }  else
+              {
+                  // Run the second query
+                  db.pool.query(selectMembers, function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          console.log(rows)
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
+
+  
+
 /*
     LISTENER
 */

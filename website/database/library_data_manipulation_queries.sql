@@ -84,7 +84,7 @@ DELETE FROM BookAuthors
 -- Update member --
 UPDATE Members
 SET   firstName = :first_name_input, last_name = :last_name_input, email = :email_input
-WHERE (firstName = :firstName_input) and (lastName = lastName_input);
+WHERE (memberID = :id_input);
 
 -- Update Authors --
 Update Authors

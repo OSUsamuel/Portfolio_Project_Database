@@ -20,6 +20,7 @@
             <td>{{this.name}}</td>
             <td>{{this.email}}</td>
             <td><button onclick="deleteMember({{this.memberID}})">Delete</button></td>
+          
         </tr>
         {{/each}}
         </table>
@@ -65,18 +66,19 @@
     </div><!-- insert -->
 
     <p>&nbsp;</p>
-    <div id="update" style="display: block">
-        <form id="updateMember">
+    
+        <form id="update-member-form-ajax">
             <legend><strong>Update member</strong></legend>
                 <fieldset class="fields">
-                  <label> Name </label> <input type="text"  name="name">
-                  <label> Email </label> <input type="email" name="email">
+                   <label for="memberID_update"> ID </label> <input id="memberID_update" type="text" name="memberID_update">
+                  <label for="firstName_update"> First Name </label> <input id="firstName_update" type="text" name="firstName_update">
+                <label for="lastName_update"> Last Name</label> <input id="lastName_update" type="text" name = "lastName_update">
+                <label for="email_update"> Email </label> <input id="email_update" type="email" name="email_update">
                   </fieldset>
           <input class="btn" type="submit" id="UpdateSaveMember" value="Save Update Member">
                 <input class="btn" type="button" value="cancel" >
         </form> 
-      </div><!-- update -->
-
+       <script src="./js/update_member.js"></script>
 
 
 
