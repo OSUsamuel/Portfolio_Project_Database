@@ -52,6 +52,10 @@ app.get('/books', function(req,res){
     res.render('books_page')
 });
 
+app.get('/borrowing_transactions', function(req, res){
+    res.render('BorrowingTransactions_page')
+});
+
 app.get('/authors', function(req,res){
     res.render('authors_page')
 });
