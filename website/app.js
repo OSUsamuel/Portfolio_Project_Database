@@ -5,7 +5,7 @@
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 9199;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9200;                 // Set a port number at the top so it's easy to change in the future
 
 
 const { engine } = require('express-handlebars');
@@ -237,6 +237,61 @@ app.post('/add-book-ajax', function(req, res)
         }
     })
 }); 
+
+
+
+
+app.post('/add-publisher-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Publishers(name, website) VALUES ('${data.name}', '${data.website}');`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+          
+            query2 = `SELECT * from Publishers;`
+            db.pool.query(query2, function(error, rows, fields){
+
+                console.log(rows);
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+}); 
+
+
+
+
+
+
+
+
+
 
 
 

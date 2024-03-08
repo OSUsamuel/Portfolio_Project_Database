@@ -1,8 +1,8 @@
 // Get the objects we need to modify
-let addBookForm = document.getElementById('addPublisherFormAjax');
+let addPublisherForm = document.getElementById('addPublisherFormAjax');
 
 // Modify the objects we need
-addBookForm.addEventListener("submit", function (e) {
+addPublisherForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -23,9 +23,7 @@ addBookForm.addEventListener("submit", function (e) {
     // Put our data we want to send in a javascript object
     let data = {
         name: nameValue,
-        website: websiteValue,
-        
-
+        website: websiteValue
     }
     
     // Setup our AJAX request
@@ -80,7 +78,7 @@ addRowToTable = (data) => {
     
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.authorID;
+    idCell.innerText = newRow.publisherID;
     nameCell.innerText = newRow.name;
     websiteCell.innterText = newRow.website;
 
