@@ -14,10 +14,12 @@ DROP TABLE IF EXISTS Books;
 CREATE OR REPLACE TABLE Books (
     bookID          INT AUTO_INCREMENT NOT NULL,
     title           VARCHAR(120) NOT NULL,
+    authorID        INT NOT NULL,
     ISBN            INT(13) NOT NULL,
     publisherID     INT,
+    FOREIGN KEY(authorID) REFERENCES Authors(authorID),
+    FOREIGN KEY(publisherID) REFERENCES Publishers(publisherID),
     PRIMARY KEY(bookID),
-    FOREIGN KEY(publisherID) REFERENCES publisherID,
     UNIQUE(bookID, ISBN)
 );
 
@@ -26,7 +28,7 @@ CREATE OR REPLACE TABLE Publishers (
     publisherID     INT AUTO_INCREMENT NOT NULL,
     name            VARCHAR(120) NOT NULL,
     website         VARCHAR(120) NOT NULL,
-    PRIMARY KEY(publisherID),
+    PRIMARY KEY(publisherID)
 
 );
 
@@ -84,11 +86,11 @@ VALUES
 -- Insert Books data
 INSERT INTO Books (title, authorID, ISBN, publisherID)
 VALUES
-    ('The Name of the Wind', 1, 9780575081406, 'DAW Books' ),
-    ('The Wise Man''s Fear', 1, 9780756407199, 'DAW Books'),
-    ('The Way of Kings', 2, 9780765265279, 'Tor Books'),
-    ('Diary of a Wimpy Kid', 3, 9782343445239, 'Amulet Books'),
-    ('The Hitchhiker''s Guide to the Galaxy', 4, 2345464434343, 'Harmony Books');
+    ('The Name of the Wind', 1, 9780575081406, 1 ),
+    ('The Wise Man''s Fear', 1, 9780756407199, 1),
+    ('The Way of Kings', 2, 9780765265279, 2),
+    ('Diary of a Wimpy Kid', 3, 9782343445239, 3),
+    ('The Hitchhiker''s Guide to the Galaxy', 4, 2345464434343, 4);
 
 -- Insert Publisher data
 INSERT INTO Publishers (name, website)
@@ -117,9 +119,9 @@ VALUES
 -- Insert BorrowingTransactions data
 INSERT INTO BorrowingTransactions (bookID, memberID, dateBorrowed, dateDue)
 VALUES
-    (2, 1, '2024-02-06', '2025-02-06'),
-    (3, 2, '2012-01-04', '2012-02-04'),
-    (5, 2, '2012-01-04', '2012-02-04');
+    (6, 29, '2024-02-06', '2025-02-06'),
+    (6, 29, '2012-01-04', '2012-02-04'),
+    (6, 29, '2012-01-04', '2012-02-04');
 
 --Re-enable foreign key checks and commit changes
 SET FOREIGN_KEY_CHECKS = 1;

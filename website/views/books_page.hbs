@@ -4,42 +4,59 @@
     <p>&nbsp;</p>
     <div id="books">
         <p><strong>Books</strong></p>
-        <table>
+        <table id="books_table">
             <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>ISBN</th>
-            </tr>
+                <th>Publisher</th>
+             <th>
+                {{@key}}
+            </th>
+         
+
+             {{#each data}}
+        <tr data_value={{this.bookID}}>
+            <td>{{this.bookID}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.authorID}}</td>
+            <td>{{this.ISBN}}</td>
+            <td>{{this.publisherID}}</td>
+            <td><button onclick="deleteBook({{this.bookID}})">Delete</button></td>
+          
+        </tr>
+        {{/each}}
         </table>
+        <script src="./js/delete_book.js"></script>
     </div>
 
 
 
-
-    <p>&nbsp;</p>
-    <div id="insert" style="display: block">
-        <form id="addBook">
+        <form id="addBookFormAjax">
             <legend><strong>Add Book</strong></legend>
               <fieldset class="fields">
-                <label> Title </label> <input type="text" name="name">
-                <label> ISBN </label> <input type="text" name="ISBN">
-                <label> Author/s </label> <input type="text" name="author_name"> 
-              </fieldset>
-              <input class="btn" type="submit" id="addMember" value="Add a Member">
-              <input class="btn" type="button" value="cancel">
-        </form> <!--add new member-->
-    </div><!-- insert -->
+                <label for="title_input"> Title </label> <input id="title_input" type="text" name="title">
+
+                <select name="author_input" id="authorID_input">
+                    <option value="">Select a Author</option>
+                    {{#each authors}}
+                    <option value={{this.authorID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
 
 
-    <p>&nbsp;</p>
-    <div id="delete" style="display: block">
-        <form id="deleteBook">
-            <legend><strong>Delete Book</strong></legend>
-              <fieldset class="fields">
-                <label>Enter Book ID</label> <input type="text" name="BookID">
+                <label for="ISBN_input"> ISBN </label> <input id="ISBN_input" type="text" name="ISBN">
+               <select name="publisher_input" id="publisherID_input">
+                    <option value="">Select a Publisher</option>
+                    {{#each publishers}}
+                    <option value={{this.publisherID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
               </fieldset>
-              <input class="btn" type="submit" id="deleteBook" value="Delete a Book">
+              <input class="btn" type="submit" id="addBook" value="Add a Book">
               <input class="btn" type="button" value="cancel">
-        </form> <!--add new member-->
-    </div><!-- insert -->
+        </form> 
+    <script src="./js/add_book.js"></script>
+
+

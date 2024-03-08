@@ -2,41 +2,42 @@
     <p>&nbsp;</p>
     <div id="authors">
         <p><strong>Authors</strong></p>
-        <table>
+        <table id="authors_table">
             <tr>
+                <th>Author ID</th>
                 <th>Name</th>
-                <th>Publishing Firm</th>
             </tr>
+            <th>
+                {{@key}}
+            </th>
+         
+
+             {{#each data}}
+        <tr data_value={{this.authorID}}>
+            <td>{{this.authorID}}</td>
+            <td>{{this.name}}</td>
+            <td><button onclick="deleteAuthor({{this.authorID}})">Delete</button></td>
+          
+        </tr>
+        {{/each}}
         </table>
+
+    </div>
     </div>
 
 
     <p>&nbsp;</p>
     <div id="insert" style="display: block">
-        <form id="addAuthor">
+        <form id="addAuthorFormAjax">
             <legend><strong>Add Author</strong></legend>
               <fieldset class="fields">
-                <label> First Name </label> <input type="text" name="firstName">
-                <label> Last Name </label> <input type="text" name="lastName">
-                <label> Publishing Firm </label> <input type="text" name="publisher"> 
+                <label for="firstName_input"> First Name </label> <input id="firstName_input" type="text" name="firstName">
+                <label for="lastName_input"> Last Name</label> <input id="lastName_input" type="text" name = "lastName">
               </fieldset>
               <input class="btn" type="submit" id="addAuthor" value="Add a Author">
               <input class="btn" type="button" value="cancel">
         </form> <!--add new member-->
     </div><!-- insert -->
-
-
-    <p>&nbsp;</p>
-    <div id="insert" style="display: block">
-        <form id="addPublisher">
-            <legend><strong>Add Publisher</strong></legend>
-              <fieldset class="fields">
-                <label> Name </label> <input type="text" name="publisherName">
-                <label> website </label> <input type="url" name="website">
-              </fieldset>
-              <input class="btn" type="submit" id="addPublisher" value="Add a Publisher">
-              <input class="btn" type="button" value="cancel">
-        </form> <!--add new member-->
-    </div><!-- insert -->
+        <script src="./js/add_author.js"></script>
 
 

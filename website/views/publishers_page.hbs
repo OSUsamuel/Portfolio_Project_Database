@@ -1,0 +1,44 @@
+
+    <p>&nbsp;</p>
+    <div id="publishers">
+        <p><strong>Authors</strong></p>
+        <table id="publishers_table">
+            <tr>
+                <th>Publisher ID</th>
+                <th>Name</th>
+                <th>Website</th>
+            </tr>
+            <th>
+                {{@key}}
+            </th>
+         
+
+             {{#each data}}
+        <tr data_value={{this.publisherID}}>
+            <td>{{this.publisherID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.website}}</td>
+          
+          
+        </tr>
+        {{/each}}
+        </table>
+
+    </div>
+    </div>
+
+
+    <p>&nbsp;</p>
+    <div id="insert" style="display: block">
+        <form id="addPublisherFormAjax">
+            <legend><strong>Add Publisher</strong></legend>
+              <fieldset class="fields">
+                <label for="name_input"> Name </label> <input id="name_input" type="text" name="publisherName">
+                <label for="website_input"> website </label> <input id="website_input" type="url" name="website">
+              </fieldset>
+              <input class="btn" type="submit" id="addPublisher" value="Add a Publisher">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+
+
