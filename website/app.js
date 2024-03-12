@@ -5,7 +5,7 @@
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 9200;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9221;                 // Set a port number at the top so it's easy to change in the future
 
 
 const { engine } = require('express-handlebars');
@@ -59,11 +59,45 @@ app.get('/books', function(req, res)
         let books = rows;
 
         db.pool.query(query2, function(error, rows, fields){
-            let authors = rows;
+            // Save the planets
+            let authors = rows; 
 
+            // BEGINNING OF NEW CODE
+           
             db.pool.query(query3, function(error, rows, fields){
                 let publishers = rows;
-                res.render('books_page', {data: books, authors: authors, publishers: publishers});
+
+            
+            let publishermap = {}
+            publishers.map(publisher => {
+                let id = parseInt(publisher.publisherID, 10);
+                publishermap[id] = publisher["name"];
+               
+            })
+
+            books = books.map(book => {
+                return Object.assign(book, {publisherID: publishermap[book.publisherID]})
+                
+            })
+
+            
+            
+            let authormap = {}
+            authors.map(author => {
+                let id = parseInt(author.authorID, 10);
+                authormap[id] = author["name"];
+               
+            })
+
+            books = books.map(book => {
+                return Object.assign(book, {authorID: authormap[book.authorID]})
+                
+            })
+
+            
+
+   
+            res.render('books_page', {data: books,authors: authors, publishers: publishers});
         })
         
     })
@@ -231,6 +265,7 @@ app.post('/add-book-ajax', function(req, res)
                 // If all went well, send the results of the query back.
                 else
                 {
+  
                     res.send(rows);
                 }
             })
@@ -266,7 +301,7 @@ app.post('/add-publisher-ajax', function(req, res)
             query2 = `SELECT * from Publishers;`
             db.pool.query(query2, function(error, rows, fields){
 
-                console.log(rows);
+           
                 // If there was an error on the second query, send a 400
                 if (error) {
                     
@@ -277,6 +312,54 @@ app.post('/add-publisher-ajax', function(req, res)
                 // If all went well, send the results of the query back.
                 else
                 {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+}); 
+
+
+
+
+app.post('/add-borrowingTransaction-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO BorrowingTransactions (bookID, memberID, dateBorrowed, dateDue) VALUES ('${data.bookID}', '${data.memberID}', '${data.dateBorrowed}', '${data.dateDue}');`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+          
+            query2 = `SELECT * from BorrowingTransactions;`
+            db.pool.query(query2, function(error, rows, fields){
+
+           
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
                     res.send(rows);
                 }
             })
@@ -315,6 +398,74 @@ app.delete('/delete-book-ajax/', function(req,res,next){
               {
                   // Run the second query
                   db.pool.query(deleteBook, [bookID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+
+
+
+
+  app.delete('/delete-author-ajax/', function(req,res,next){
+    let data = req.body;
+    let authorID = parseInt(data.id);
+    let deleteAuthor = `DELETE FROM Authors where authorID = '${data.id}';`;
+    let deleteBookAuthors = `Delete FROM BookAuthors where BookAuthors.authorID = '${data.id}';`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBookAuthors, [authorID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteAuthor, [authorID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+
+
+  app.delete('/delete-publisher-ajax/', function(req,res,next){
+    let data = req.body;
+    let publisherID = parseInt(data.id);
+    let deletePublisher = `DELETE FROM Publishers where publisherID = '${data.id}';`;
+    let deleteBook = `Delete FROM Books where Books.publisherID = '${data.id}';`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBook, [publisherID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deletePublisher, [publisherID], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);

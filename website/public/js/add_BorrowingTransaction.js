@@ -1,20 +1,24 @@
 // Get the objects we need to modify
-let addPublisherForm = document.getElementById('addPublisherFormAjax');
+let addBorrowingTransactionForm = document.getElementById("addBorrowingTransactionFormAjax");
 
 // Modify the objects we need
-addPublisherForm.addEventListener("submit", function (e) {
+addBorrowingTransactionForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputName = document.getElementById("name_input");
-    let inputWebsite = document.getElementById("website_input");
+    let inputBookID = document.getElementById("bookID_input");
+    let inputMemberID = document.getElementById("memberID_input");
+    let inputDateBorrowed = document.getElementById("dateBorrowed_input");
+    let inputDateDue = document.getElementById("dateDue_input");
   
 
     // Get the values from the form fields
-    let nameValue = inputName.value;
-    let websiteValue = inputWebsite.value;
+    let bookIDValue = inputBookID.value;
+    let memberIDValue = inputMemberID.value;
+    let dateBorrowedValue = inputDateBorrowed.value;
+    let dateDueValue = inputDateDue.value;
 
 
    
@@ -22,13 +26,15 @@ addPublisherForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        name: nameValue,
-        website: websiteValue
+        bookID: bookIDValue,
+        memberID: memberIDValue,
+        dateBorrowed: dateBorrowedValue,
+        dateDue: dateDueValue
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-publisher-ajax", true);
+    xhttp.open("POST", "/add-borrowingTransaction-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -39,8 +45,10 @@ addPublisherForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputName.value = '';
-            inputWebsite.value = '';
+            inputBookID.value = '';
+            inputMemberID.value = '';
+            inputDateBorrowed.value = '';
+            inputDateDue.value = '';
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -59,7 +67,7 @@ addPublisherForm.addEventListener("submit", function (e) {
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("publishers_table");
+    let currentTable = document.getElementById("BorrowingTransaction_table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
@@ -71,16 +79,20 @@ addRowToTable = (data) => {
     // Create a row and 4 cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
-    let nameCell = document.createElement("TD");
-    let websiteCell = document.createElement("TD");
+    let bookIDCell = document.createElement("TD");
+    let memberIDCell = document.createElement("TD");
+    let dateBorrowedCell = document.createElement("TD");
+    let dateDueCell = document.createElement("TD");
 
     let deleteCell = document.createElement("TD");
     
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.publisherID;
-    nameCell.innerText = newRow.name;
-    websiteCell.innerText = newRow.website;
+    idCell.innerText = newRow.transactionID;
+    bookIDCell.innerText = newRow.bookID;
+    memberIDCell.innerText = newRow.memberID;
+    dateBorrowedCell.innerText = newRow.dateBorrowed;
+    dateDueCell.innerText = newRow.dateDue;
 
 
     deleteCell = document.createElement("button");
@@ -93,9 +105,10 @@ addRowToTable = (data) => {
 
     // Add the cells to the row 
     row.appendChild(idCell);
-    row.appendChild(nameCell);
-    row.appendChild(websiteCell);
-    row.appendChild(deleteCell);
+    row.appendChild(bookIDCell);
+    row.appendChild(memberIDCell);
+    row.appendChild(dateBorrowedCell);
+    row.appendChild(dateDueCell);
     
 
 

@@ -16,7 +16,6 @@
             <td>{{this.transactionID}}</td>
             <td>{{this.bookID}}</td>
             <td>{{this.memberID}}</td>
-            <td>{{this.authorID}}</td>
             <td>{{this.dateBorrowed}}</td>
             <td>{{this.dateDue}}</td>
 
@@ -24,3 +23,20 @@
         </tr>
         {{/each}}
         </table>
+
+
+    <p>&nbsp;</p>
+    <div id="insert" style="display: block">
+        <form id="addBorrowingTransactionFormAjax">
+            <legend><strong>Add BorrowingTransaction</strong></legend>
+              <fieldset class="fields">
+                <label for="bookID_input"> BookID </label> <input id="bookID_input" type="text" name="bookID">
+                <label for="memberID_input"> memberID </label> <input id="memberID_input" type="text" name = "memberID">
+                <label for="dateBorrowed_input"> Date Borrowed</label> <input id="dateBorrowed_input" type="text" name="dateBorrowed">
+                <label for="dateDue_input"> Date Due</label> <input id="dateDue_input" type="text" name = "dateDue">
+              </fieldset>
+              <input class="btn" type="submit" id="addBorrowingTransaction" value="Add a Transaction">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new member-->
+    </div><!-- insert -->
+        <script src="./js/add_BorrowingTransaction.js"></script>

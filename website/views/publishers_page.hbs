@@ -18,12 +18,13 @@
             <td>{{this.publisherID}}</td>
             <td>{{this.name}}</td>
             <td>{{this.website}}</td>
+            <td><button onclick="deletePublisher({{this.publisherID}})">Delete</button></td>
           
           
         </tr>
         {{/each}}
         </table>
-
+        <script src="./js/delete_publisher.js"></script>
     </div>
     </div>
 
