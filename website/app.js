@@ -109,8 +109,23 @@ app.get('/books', function(req, res)
 app.get('/borrowing_transactions', function(req, res){
 
     query1 = "SELECT * from BorrowingTransactions;"
+    query2 = "Select * from Books;"
+    query3 = "SELECT memberID, CONCAT(firstName ,  \" \", lastName  ) as name from Members;"
+
+
     db.pool.query(query1, function(error, rows, fields){
-        res.render('BorrowingTransactions_page', {data: rows});
+            transactions = rows;
+        db.pool.query(query2, function(error, row, fields){
+                books = row;
+               
+            db.pool.query(query3, function(error, row, fields){
+                members = row;
+                console.log(members)
+                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members});
+
+            })
+        })
+        
     })
     
 
@@ -509,6 +524,33 @@ app.delete('/delete-member-ajax/', function(req,res,next){
                   })
               }
   })});
+
+
+  app.delete('/delete-BorrowingTransaction-ajax/', function(req,res,next){
+    let data = req.body;
+    let transactionID = parseInt(data.id);
+    let deleteBorrowingTransaction = `DELETE FROM BorrowingTransactions where transactionID = '${data.id}';`;  
+
+    db.pool.query(deleteBorrowingTransaction, [transactionID], function(error, rows, fields) {
+
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
+              
+  });
+
+
+
+
+
+
+
+
+
 
 
   app.put('/put-member-ajax', function(req,res,next){

@@ -18,11 +18,13 @@
             <td>{{this.memberID}}</td>
             <td>{{this.dateBorrowed}}</td>
             <td>{{this.dateDue}}</td>
-
+            <td><button onclick="deleteBorrowingTransaction({{this.transactionID}})">Delete</button></td>
           
         </tr>
         {{/each}}
         </table>
+        <script src="./js/delete_BorrowingTransaction.js"></script>
+
 
 
     <p>&nbsp;</p>
@@ -30,8 +32,22 @@
         <form id="addBorrowingTransactionFormAjax">
             <legend><strong>Add BorrowingTransaction</strong></legend>
               <fieldset class="fields">
-                <label for="bookID_input"> BookID </label> <input id="bookID_input" type="text" name="bookID">
-                <label for="memberID_input"> memberID </label> <input id="memberID_input" type="text" name = "memberID">
+
+                <select name="book_input" id="bookID_input">
+                    <option value="">Select a Book</option>
+                    {{#each books}}
+                    <option value={{this.bookID}}>{{this.title}}</option>
+                     {{/each}}
+                </select>
+
+                <select name="member_input" id="memberID_input">
+                    <option value="">Select a member</option>
+                    {{#each members}}
+                    <option value={{this.memberID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
+
+
                 <label for="dateBorrowed_input"> Date Borrowed</label> <input id="dateBorrowed_input" type="text" name="dateBorrowed">
                 <label for="dateDue_input"> Date Due</label> <input id="dateDue_input" type="text" name = "dateDue">
               </fieldset>
