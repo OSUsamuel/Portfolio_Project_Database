@@ -120,7 +120,34 @@ app.get('/borrowing_transactions', function(req, res){
                
             db.pool.query(query3, function(error, row, fields){
                 members = row;
-                console.log(members)
+                
+
+                let booksmap = {}
+                books.map(book => {
+                    let id = parseInt(book.bookID, 10);
+                    booksmap[id] = book["title"];
+                   
+                })
+    
+                transactions = transactions.map(transaction => {
+                    return Object.assign(transaction, {bookID: booksmap[transaction.bookID]})
+                    
+                })
+
+                
+                let membersmap = {}
+                members.map(member => {
+                    let id = parseInt(member.memberID, 10);
+                    membersmap[id] = member["name"];
+                   
+                })
+    
+                transactions = transactions.map(transaction => {
+                    return Object.assign(transaction, {memberID: membersmap[transaction.memberID]})
+                    
+                })
+
+
                 res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members});
 
             })

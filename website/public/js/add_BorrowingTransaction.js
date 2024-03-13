@@ -109,6 +109,7 @@ addRowToTable = (data) => {
     row.appendChild(memberIDCell);
     row.appendChild(dateBorrowedCell);
     row.appendChild(dateDueCell);
+    row.appendChild(deleteCell);
     
 
 
