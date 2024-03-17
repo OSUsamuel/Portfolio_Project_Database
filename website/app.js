@@ -280,16 +280,19 @@ app.post('/add-book-ajax', function(req, res)
     // Capture NULL values
     
     let publisherID = parseInt(data.publisherID);
+    console.log(data)
     console.log(publisherID)
     if (isNaN(publisherID))
-    {
-        data.publisherID = NULL
+    {     
+        data.publisherID = null;
     }
-    console.log(data.publisherID)
 
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Books (title, authorID, ISBN, publisherID) VALUES ('${data.title}', '${data.authorID}', '${data.ISBN}', '${data.publisherID}');`;
+    query1 = `INSERT INTO Books (title, authorID, ISBN, publisherID) VALUES ('${data.title}', ${data.authorID}, '${data.ISBN}', ${data.publisherID});`;
+    let getPublisherName = `select name from Publishers where (publisherID = '${data.publisherID}');`
+    let getAuthorName = `select CONCAT(firstName ,  \" \", lastName) as name from Authors where (authorID = '${data.authorID}')`  
+    
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -304,6 +307,18 @@ app.post('/add-book-ajax', function(req, res)
           
             query2 = `SELECT * from Books;`
             db.pool.query(query2, function(error, rows, fields){
+                    let books = rows
+                
+                     db.pool.query(getPublisherName, function(error, rows, fields) {
+                         let publisher = rows;
+                        db.pool.query(getAuthorName, function(error, rows, fields){
+                            let author = rows;
+
+                    
+  
+                    books = books.map(book => {
+                        return Object.assign(book, {publisherID: publisher[0].name, authorID: author[0].name})           
+                    })
 
                 // If there was an error on the second query, send a 400
                 if (error) {
@@ -316,9 +331,12 @@ app.post('/add-book-ajax', function(req, res)
                 else
                 {
   
-                    res.send(rows);
+                    res.send(books);
                 }
             })
+            })
+        })
+            
         }
     })
 }); 
@@ -627,11 +645,19 @@ app.delete('/delete-member-ajax/', function(req,res,next){
     console.log(data)
   
     let bookID = parseInt(data.bookID)
-    console.log(data)
+    
+
+    if (isNaN(parseInt(data.publisherID)))
+    {     
+        data.publisherID = null;
+    }
+    
  
-    let queryUpdateBook = `UPDATE Books SET title = '${data.title}', authorID = '${data.authorID}', ISBN = '${data.ISBN}', publisherID = '${data.publisherID}' WHERE (bookID = '${bookID}');`
+    let queryUpdateBook = `UPDATE Books SET title = '${data.title}', authorID = '${data.authorID}', ISBN = '${data.ISBN}', publisherID = ${data.publisherID} WHERE (bookID = '${bookID}');`
     let selectBooks = `select * from Books where (bookID = '${bookID}')`
-          // Run the 1st query
+    let getPublisherName = `select name from Publishers where (publisherID = '${data.publisherID}');`
+    let getAuthorName = `select CONCAT(firstName ,  \" \", lastName) as name from Authors where (authorID = '${data.authorID}')`   
+        // Run the 1st query
           db.pool.query(queryUpdateBook, function(error, rows, fields){
               if (error) {
   
@@ -642,15 +668,35 @@ app.delete('/delete-member-ajax/', function(req,res,next){
               {
                   // Run the second query
                   db.pool.query(selectBooks, function(error, rows, fields) {
-  
+                    let books = rows;
+                    
+                    db.pool.query(getPublisherName, function(error, rows, fields) {
+                        let publisher = rows;
+                        db.pool.query(getAuthorName, function(error, rows, fields){
+                            let author = rows;
+
+                    
+
+                    if(publisher[0] == undefined){
+                        books = books.map(book => {
+                            return Object.assign(book, {authorID: author[0].name})           
+                        })
+                    }else {
+                    books = books.map(book => {
+                        return Object.assign(book, {publisherID: publisher[0].name, authorID: author[0].name})           
+                    })
+                }
+
                       if (error) {
                           console.log(error);
                           res.sendStatus(400);
                       } else {
-                          console.log(rows)
-                          res.send(rows);
+                          console.log(books)
+                          res.send(books);
                       }
                   })
+                })
+            })
               }
   })});
 

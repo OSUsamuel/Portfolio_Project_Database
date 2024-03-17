@@ -21,7 +21,7 @@ updateBookForm.addEventListener("submit", function (e) {
     let titleValue = inputTitle.value;
     let authorIDValue = inputAuthorID.value;
     let ISBNValue = inputISBN.value;
-    let publisherIDValue = inputPublisherID;
+    let publisherIDValue = inputPublisherID.value;
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
@@ -67,7 +67,7 @@ function updateRow(data, bookID){
     let parsedData = JSON.parse(data);
 
     
-    let table = document.getElementById("bookss_table");
+    let table = document.getElementById("books_table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows

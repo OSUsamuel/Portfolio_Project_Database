@@ -50,7 +50,7 @@
                <select name="publisher_input" id="publisherID_input">
                     <option value="">Select a Publisher</option>
                     {{#each publishers}}
-                    <option value="">Independent</option>
+
                     <option value={{this.publisherID}}>{{this.name}}</option>
                      {{/each}}
                 </select>
@@ -60,7 +60,7 @@
         </form> 
     <script src="./js/add_book.js"></script>
 
-
+        <h2>This is where you can set publishers to NULL when updating</h2>
         <form id="update-book-form-ajax">
         <legend><strong>Update book</strong></legend>
             <fieldset class="fields">
@@ -77,7 +77,7 @@
             <select name="publisherID_update" id="publisherID_update">
                     <option value="">Select a Publisher</option>
                     {{#each publishers}}
-                    <option value="">Independent</option>
+
                     <option value={{this.publisherID}}>{{this.name}}</option>
                      {{/each}}
                 </select>
