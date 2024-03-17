@@ -50,6 +50,7 @@
                <select name="publisher_input" id="publisherID_input">
                     <option value="">Select a Publisher</option>
                     {{#each publishers}}
+                    <option value="">Independent</option>
                     <option value={{this.publisherID}}>{{this.name}}</option>
                      {{/each}}
                 </select>
@@ -58,5 +59,33 @@
               <input class="btn" type="button" value="cancel">
         </form> 
     <script src="./js/add_book.js"></script>
+
+
+        <form id="update-book-form-ajax">
+        <legend><strong>Update book</strong></legend>
+            <fieldset class="fields">
+                <label for="bookID_update"> ID </label> <input id="bookID_update" type="text" name="bookID_update">
+                <label for="title_update"> Title </label> <input id="title_update" type="text" name="title_update">
+                <select name="author_update" id="authorID_update">
+                    <option value="">Select a Author</option>
+                    {{#each authors}}
+                    <option value={{this.authorID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
+
+            <label for="ISBN_update"> ISBN</label> <input id="ISBN_update" type="text" name = "ISBN_update">
+            <select name="publisherID_update" id="publisherID_update">
+                    <option value="">Select a Publisher</option>
+                    {{#each publishers}}
+                    <option value="">Independent</option>
+                    <option value={{this.publisherID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
+                </fieldset>
+        <input class="btn" type="submit" id="UpdateSaveBook" value="Save Update Book">
+            <input class="btn" type="button" value="cancel" >
+    </form> 
+    <script src="./js/update_book.js"></script>
+
 
 

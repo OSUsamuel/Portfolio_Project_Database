@@ -278,6 +278,14 @@ app.post('/add-book-ajax', function(req, res)
     let data = req.body;
 
     // Capture NULL values
+    
+    let publisherID = parseInt(data.publisherID);
+    console.log(publisherID)
+    if (isNaN(publisherID))
+    {
+        data.publisherID = NULL
+    }
+    console.log(data.publisherID)
 
 
     // Create the query and run it on the database
@@ -600,6 +608,40 @@ app.delete('/delete-member-ajax/', function(req,res,next){
               {
                   // Run the second query
                   db.pool.query(selectMembers, function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          console.log(rows)
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
+
+
+
+  app.put('/put-book-ajax', function(req,res,next){
+    let data = req.body;
+    console.log(data)
+  
+    let bookID = parseInt(data.bookID)
+    console.log(data)
+ 
+    let queryUpdateBook = `UPDATE Books SET title = '${data.title}', authorID = '${data.authorID}', ISBN = '${data.ISBN}', publisherID = '${data.publisherID}' WHERE (bookID = '${bookID}');`
+    let selectBooks = `select * from Books where (bookID = '${bookID}')`
+          // Run the 1st query
+          db.pool.query(queryUpdateBook, function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }  else
+              {
+                  // Run the second query
+                  db.pool.query(selectBooks, function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);
