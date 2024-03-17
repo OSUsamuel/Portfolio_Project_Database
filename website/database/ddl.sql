@@ -119,9 +119,9 @@ VALUES
 -- Insert BorrowingTransactions data
 INSERT INTO BorrowingTransactions (bookID, memberID, dateBorrowed, dateDue)
 VALUES
-    (6, 29, '2024-02-06', '2025-02-06'),
-    (6, 29, '2012-01-04', '2012-02-04'),
-    (6, 29, '2012-01-04', '2012-02-04');
+    (1, 1, '2024-02-06', '2025-02-06'),
+    (1, 1, '2012-01-04', '2012-02-04'),
+    (2, 1, '2012-01-04', '2012-02-04');
 
 --Re-enable foreign key checks and commit changes
 SET FOREIGN_KEY_CHECKS = 1;
