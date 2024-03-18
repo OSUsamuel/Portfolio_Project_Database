@@ -26,11 +26,16 @@ var db = require('./database/db-connector')
 
 app.set('view engine', 'hbs');
 
+app.get('/', function(req, res){
+
+    res.render('index');
+})
+
 
 // app.js - ROUTES section
-app.get('/', function(req, res)
+app.get('/members', function(req, res)
 {
-
+    let getMembers = `Select memberID from Members`
    
     if (req.query.lastName === undefined)
     {
@@ -42,7 +47,11 @@ app.get('/', function(req, res)
    
 
     db.pool.query(query1, function(error, rows, fields){
-        res.render('index', {data: rows});
+        let members = rows
+        db.pool.query(getMembers, function(error, rows, fields){
+            res.render('members_page', {data: members, memberIDs: rows});
+        })
+
     })
 });
 
@@ -51,12 +60,14 @@ app.get('/books', function(req, res)
 {
 
     query1 = "SELECT * from Books;";
+    getBookIDs = "Select bookID from Books;"
     query2 = "SELECT authorID, CONCAT(firstName ,  \" \", lastName  ) as name from Authors;";
     query3 = "SELECT * from Publishers;"
     
 
     db.pool.query(query1, function(error, rows, fields){
         let books = rows;
+
 
         db.pool.query(query2, function(error, rows, fields){
             // Save the planets
@@ -66,8 +77,10 @@ app.get('/books', function(req, res)
            
             db.pool.query(query3, function(error, rows, fields){
                 let publishers = rows;
+                    db.pool.query(getBookIDs, function(error, rows, fields){
+                        let bookIDs = rows;
 
-            
+
             let publishermap = {}
             publishers.map(publisher => {
                 let id = parseInt(publisher.publisherID, 10);
@@ -95,10 +108,11 @@ app.get('/books', function(req, res)
             })
 
             
-
-   
-            res.render('books_page', {data: books,authors: authors, publishers: publishers});
+            
+            console.log(books.bookID)
+            res.render('books_page', {data: books,authors: authors, publishers: publishers, bookIDs: bookIDs});
         })
+    })
         
     })
 });

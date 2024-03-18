@@ -64,7 +64,13 @@
         <form id="update-book-form-ajax">
         <legend><strong>Update book</strong></legend>
             <fieldset class="fields">
-                <label for="bookID_update"> ID </label> <input id="bookID_update" type="text" name="bookID_update">
+              <select name="bookID_update" id="bookID_update">
+                    <option value="">Select a Book</option>
+                    {{#each bookIDs}}
+                    <option value={{this.bookID}}>{{this.bookID}}</option>
+                     {{/each}}
+                </select>
+
                 <label for="title_update"> Title </label> <input id="title_update" type="text" name="title_update">
                 <select name="author_update" id="authorID_update">
                     <option value="">Select a Author</option>
