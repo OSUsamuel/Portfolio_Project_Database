@@ -166,7 +166,7 @@ app.get('/borrowing_transactions', function(req, res){
                 })
 
 
-                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members});
+                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members, transactionIDs: transactionIDs});
 
             })
         })
