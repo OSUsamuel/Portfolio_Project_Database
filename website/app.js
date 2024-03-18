@@ -28,7 +28,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res){
 
-    res.render('index');
+    res.render('index', {cssType: "index"});
 })
 
 
@@ -49,7 +49,7 @@ app.get('/members', function(req, res)
     db.pool.query(query1, function(error, rows, fields){
         let members = rows
         db.pool.query(getMembers, function(error, rows, fields){
-            res.render('members_page', {data: members, memberIDs: rows});
+            res.render('members_page', {data: members, memberIDs: rows, cssType: "members"});
         })
 
     })
@@ -110,7 +110,7 @@ app.get('/books', function(req, res)
             
             
             console.log(books.bookID)
-            res.render('books_page', {data: books,authors: authors, publishers: publishers, bookIDs: bookIDs});
+            res.render('books_page', {data: books,authors: authors, publishers: publishers, bookIDs: bookIDs, cssType: "books"});
         })
     })
         
@@ -166,8 +166,8 @@ app.get('/borrowing_transactions', function(req, res){
                 })
 
 
-                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members, transactionIDs: transactionIDs});
-            })
+                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members});
+
             })
         })
         
@@ -184,7 +184,7 @@ app.get('/authors', function(req,res){
     
 
     db.pool.query(query1, function(error, rows, fields){
-        res.render('authors_page', {data: rows});
+        res.render('authors_page', {data: rows, cssType: "authors"});
     })
 });
 
@@ -192,7 +192,7 @@ app.get('/authors', function(req,res){
 app.get('/publishers', function(req,res){
     query1 = "SELECT * from Publishers;"
     db.pool.query(query1, function(error, rows, fields){
-        res.render('publishers_page', {data: rows});
+        res.render('publishers_page', {data: rows, cssType: "publishers"});
     })
    
 });
