@@ -125,6 +125,8 @@ app.get('/borrowing_transactions', function(req, res){
     query1 = "SELECT * from BorrowingTransactions;"
     query2 = "Select * from Books;"
     query3 = "SELECT memberID, CONCAT(firstName ,  \" \", lastName  ) as name from Members;"
+    getTransactionIDs = "Select transactionID from BorrowingTransactions;"
+
 
 
     db.pool.query(query1, function(error, rows, fields){
@@ -134,6 +136,8 @@ app.get('/borrowing_transactions', function(req, res){
                
             db.pool.query(query3, function(error, row, fields){
                 members = row;
+                db.pool.query(getTransactionIDs, function(error, rows, fields){
+                    let transactionIDs = rows;
                 
 
                 let booksmap = {}
@@ -162,8 +166,8 @@ app.get('/borrowing_transactions', function(req, res){
                 })
 
 
-                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members});
-
+                res.render('BorrowingTransactions_page', {data: transactions, books: books, members: members, transactionIDs: transactionIDs});
+            })
             })
         })
         
@@ -713,6 +717,65 @@ app.delete('/delete-member-ajax/', function(req,res,next){
             })
               }
   })});
+
+
+
+
+
+  app.put('/put-BorrowingTransaction-ajax', function(req,res,next){
+    let data = req.body;
+    console.log(data)
+  
+    let transactionID = parseInt(data.transactionID)
+    
+
+
+    
+    let queryUpdateBorrowingTransaction = `UPDATE BorrowingTransactions SET bookID = '${data.bookID}', memberID = '${data.memberID}', dateBorrowed = '${data.dateBorrowed}', dateDue = '${data.dateDue}' WHERE (transactionID = '${transactionID}');`
+    let selectTransactions = `select * from BorrowingTransactions where (transactionID = '${transactionID}');`
+    let getBookTitle = `select * from Books where (bookID = '${data.bookID}');`
+    let getMemberName = `select CONCAT(firstName ,  \" \", lastName) as name from Members where (memberID = '${data.memberID}');`   
+        // Run the 1st query
+          db.pool.query(queryUpdateBorrowingTransaction, function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }  else
+              {
+                  // Run the second query
+                  db.pool.query(selectTransactions, function(error, rows, fields) {
+                    let transactions = rows;
+                    
+                    db.pool.query(getBookTitle, function(error, rows, fields) {
+                        let book = rows;
+                        console.log(book);
+                          
+                        db.pool.query(getMemberName, function(error, rows, fields){
+                            let member = rows;
+
+                    
+                    transactions = transactions.map(transaction => {
+                        return Object.assign(transaction, {bookID: book[0].title, memberID: member[0].name})           
+                    })
+
+                
+
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          console.log(transactions)
+                          res.send(transactions);
+                      }
+                  })
+                })
+            })
+              }
+  })});
+
+  
 
   
 

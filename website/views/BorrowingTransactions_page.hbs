@@ -56,3 +56,35 @@
         </form> <!--add new member-->
     </div><!-- insert -->
         <script src="./js/add_BorrowingTransaction.js"></script>
+
+
+        <form id="update-BorrowingTransaction-form-ajax">
+        <legend><strong>Update Transaction</strong></legend>
+            <fieldset class="fields">
+              <select name="transactionID_update" id="transactionID_update">
+                    <option value="">Select a Transaction</option>
+                    {{#each transactionIDs}}
+                    <option value={{this.transactionID}}>{{this.transactionID}}</option>
+                     {{/each}}
+                </select>
+                <select name="bookID_update" id="bookID_update">
+                    <option value="">Select a Book</option>
+                    {{#each books}}
+                    <option value={{this.bookID}}>{{this.title}}</option>
+                     {{/each}}
+                </select>                
+                <select name="member_update" id="memberID_update">
+                    <option value="">Select a Member</option>
+                    {{#each members}}
+                    <option value={{this.memberID}}>{{this.name}}</option>
+                     {{/each}}
+                </select>
+
+            <label for="dateBorrowed_update"> Date Borrowed</label> <input id="dateBorrowed_update" type="datetime-local" name="dateBorrowed">
+            <label for="dateDue_update"> Date Due</label> <input id="dateDue_update" type="datetime-local" name = "dateDue">
+        
+                </fieldset>
+            <input class="btn" type="submit" id="UpdateSaveBook" value="Save Update Book">
+            <input class="btn" type="button" value="cancel" >
+    </form> 
+    <script src="./js/update_BorrowingTransactions.js"></script>
