@@ -1,83 +1,64 @@
- <main>
+<main>
 
-  
-    <p>&nbsp;</p>
-    <div >
-        <p><strong>Our Members</strong></p>
-        <table id="members_table">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-            <th>
-                {{@key}}
-            </th>
-         
+<p>&nbsp;</p>
+<div >
+    <h2>Members</h2>
+    <table id="members_table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        <th>
+            {{@key}}
+        </th>
+     
 
-             {{#each data}}
-        <tr data_value={{this.memberID}}>
-            <td>{{this.memberID}}</td>
-            <td>{{this.name}}</td>
-            <td>{{this.email}}</td>
-            <td><button onclick="deleteMember({{this.memberID}})">Delete</button></td>
-          
-        </tr>
-        {{/each}}
-        </table>
-        <script src="./js/delete_member.js"></script>
-    </div>
+         {{#each data}}
+    <tr data_value={{this.memberID}}>
+        <td>{{this.memberID}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td><button onclick="deleteMember({{this.memberID}})">Delete</button></td>
+      
+    </tr>
+    {{/each}}
+    </table>
+    <script src="./js/delete_member.js"></script>
+    <link rel="stylesheet" href="/styles/membersstyle.css">
+</div>
 
-
-<h2>Search by Last Name</h2>
-<p>Search by last name using the field below. Partial last names are OK too!</p>
-<form id="search_person" method='GET' action='/'>
-    <label for="lastName_input">Search by Last Name: </label>
-    <input type="text" name="lastName" id="input-lastName-search">
-    
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form>
-
-
-    <p>&nbsp;</p>
-    <div id="insert" style="display: block">
-        <form id="addMemberFormAjax">
-            <legend><strong>Add Member</strong></legend>
-              <fieldset class="fields">
-                <label for="firstName_input"> First Name </label> <input id="firstName_input" type="text" name="firstName">
-                <label for="lastName_input"> Last Name</label> <input id="lastName_input" type="text" name = "lastName">
-                <label for="email_input"> Email </label> <input id="email_input" type="email" name="email_input">
-              </fieldset>
-              <input type="submit" >
-        </form> <!--add new member-->
-    </div><!-- insert -->
-    <script src="./js/add_member.js"></script>
-    
+<p>&nbsp;</p>
+<div id="insert" style="display: block">
+    <form id="addMemberFormAjax">
+        <legend><strong>Add Member</strong></legend>
+          <fieldset class="fields">
+            <label for="firstName_input"> First Name </label> <input id="firstName_input" type="text" name="firstName">
+            <label for="lastName_input"> Last Name</label> <input id="lastName_input" type="text" name = "lastName">
+            <label for="email_input"> Email </label> <input id="email_input" type="email" name="email_input">
+          </fieldset>
+          <input type="submit" >
+    </form>
+</div>
+<script src="./js/add_member.js"></script>
 
 
-    <p>&nbsp;</p>
-    
-        <form id="update-member-form-ajax">
-            <legend><strong>Update member</strong></legend>
-                <fieldset class="fields">
-                 <select name="bookID_input" id="bookID_input">
-                    <option value="">Select BookID</option>
-                    {{#each bookIDs}}
-                    <option value={{this.bookID}}>{{this.bookID}}</option>
-                     {{/each}}
-                </select>
-                <label for="firstName_update"> First Name </label> <input id="firstName_update" type="text" name="firstName_update">
-                <label for="lastName_update"> Last Name</label> <input id="lastName_update" type="text" name = "lastName_update">
-                <label for="email_update"> Email </label> <input id="email_update" type="email" name="email_update">
-                  </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveMember" value="Save Update Member">
-                <input class="btn" type="button" value="cancel" >
-        </form> 
-       <script src="./js/update_member.js"></script>
+<p>&nbsp;</p>
+    <form id="update-member-form-ajax">
+        <legend><strong>Update member</strong></legend>
+        <fieldset class="fields">
+            <select name="memberID_input" id="memberID_input">
+                <option value="">Select Member ID</option>
+                {{#each data}}
+                <option value="{{this.memberID}}">{{this.memberID}}</option>
+                {{/each}}
+            </select>
+            <label for="firstName_update">First Name</label> <input id="firstName_update" type="text" name="firstName_update">
+            <label for="lastName_update">Last Name</label> <input id="lastName_update" type="text" name="lastName_update">
+            <label for="email_update">Email</label> <input id="email_update" type="email" name="email_update">
+        </fieldset>
+        <input class="btn" type="submit" id="UpdateSaveMember" value="Save Update Member">
+        <input class="btn" type="button" value="Cancel">
+    </form>
+   <script src="./js/update_member.js"></script> 
 
-
-
-  
-    
-
-    </main>
+</main>
