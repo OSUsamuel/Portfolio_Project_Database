@@ -28,7 +28,7 @@ INNER JOIN Books ON BorrowingTransactions.bookID = Books.bookID
 INNER JOIN Authors ON Books.authorID = Author.authorID;
 
 /**************************************************************************************************************
-Insert queries for "Add New"
+Insert queries
 **************************************************************************************************************/
 -- Adds new member --
 INSERT INTO Members (firstName, lastName, email)
@@ -42,7 +42,9 @@ VALUES (:title_input, :ISBN_input,(SELECT publisherID from Publishers WHERE name
 INSERT INTO Authors (firstName, lastName)
 VALUES (:firstName_input, :lastName_input);
 
--- Adds new Borrowing Transactions
+-- Adds new Borrowing Transactions --
+INSERT INTO BorrowingTransactions (dateBorrowed, dateDue, bookID, memberID)
+VALUES (:date_borrowed_input, :date_due_input, :book_id_input, :member_id_input);
 
 -- Adds new publisher --
 INSERT INTO Publishers (name, website)
@@ -61,14 +63,16 @@ DELETE FROM Members where MemberID = :memberID_input;
 
 -- Delete Book -- 
 DELETE FROM Books WHERE (ISBN = :ISBN_input);
-DELETE FROM BookAuthors 
-    WHERE
-        bookID = (SELECT bookID FROM Books WHERE (ISBN = :ISBN_input));
+DELETE FROM BookAuthors WHERE bookID = (SELECT bookID FROM Books WHERE (ISBN = :ISBN_input));
+
+-- Delete Author -- 
+DELETE FROM Authors WHERE authorID = :authorID_input;
 
 -- Delete Borrowing Transactions --
+DELETE FROM BorrowingTransactions WHERE transactionID = :transactionID_input;
     
 -- Delete Publisher --
-DELETE FROM Publishers WHERE (name = :name_input);
+DELETE FROM Publishers WHERE publisherID = :publisherID_input;
 
 /**************************************************************************************************************
 Update Queries
@@ -84,11 +88,21 @@ SET title = ':new_title'
 WHERE bookID = :book_id;
 
 -- Update Authors --
-Update Authors
+UPDATE Authors
 SET   firstName = :first_name_input, last_name = :last_name_input
 WHERE (firstName = :firstName_input) and (lastName = lastName_input);
 
 -- Update Borrowing Transactions --
+UPDATE BorrowingTransactions
+INNER JOIN Members ON BorrowingTransactions.memberID = Members.memberID
+INNER JOIN Books ON BorrowingTransactions.bookID = Books.bookID
+SET 
+    Books.title = :new_book_title,  
+    Members.firstName = :new_first_name,
+    Members.lastName = :new_last_name,  
+    BorrowingTransactions.dateReturned = :new_date_returned  
+WHERE 
+    BorrowingTransactions.transactionID = :transaction_id;
 
 
 -- Update Publishers --
