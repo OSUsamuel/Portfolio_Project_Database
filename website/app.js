@@ -174,7 +174,7 @@ app.get('/borrowing_transactions', function(req, res){
     })
     
 
-
+    })
 
 });
 
