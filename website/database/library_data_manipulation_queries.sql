@@ -28,7 +28,7 @@ INNER JOIN Books ON BorrowingTransactions.bookID = Books.bookID
 INNER JOIN Authors ON Books.authorID = Author.authorID;
 
 /**************************************************************************************************************
-Insert queries for "Add New"
+Insert queries
 **************************************************************************************************************/
 -- Adds new member --
 INSERT INTO Members (firstName, lastName, email)
