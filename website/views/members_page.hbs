@@ -27,6 +27,17 @@
     <link rel="stylesheet" href="/styles/membersstyle.css">
 </div>
 
+
+<h2>Search by Last Name</h2>
+<p>Search by last name using the field below. Partial last names are OK too!</p>
+<form id="search_person" method='GET' action='/members'>
+    <label for="lastName_input">Search by Last Name: </label>
+    <input type="text" name="lastName" id="input-lastName-search">
+
+    <input type="submit">
+    <a href='/members'><button>Reset</button></a>
+</form>
+
 <p>&nbsp;</p>
 <div id="insert" style="display: block">
     <form id="addMemberFormAjax">
