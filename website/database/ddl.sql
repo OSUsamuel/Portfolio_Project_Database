@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS BorrowingTransactions;
 DROP TABLE IF EXISTS Members;
 DROP TABLE IF EXISTS Authors;
 DROP TABLE IF EXISTS Books;
+DROP TABLE IF EXISTS Publishers;
 
 -- Create database tables
 

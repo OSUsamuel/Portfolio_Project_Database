@@ -344,10 +344,15 @@ app.post('/add-book-ajax', function(req, res)
                             let author = rows;
 
                     
-  
+                    if(publisher[0] == undefined){
+                    books = books.map(book => {
+                        return Object.assign(book, {authorID: author[0].name})           
+                    })
+                    } else {
                     books = books.map(book => {
                         return Object.assign(book, {publisherID: publisher[0].name, authorID: author[0].name})           
                     })
+                }
 
                 // If there was an error on the second query, send a 400
                 if (error) {
@@ -430,6 +435,10 @@ app.post('/add-borrowingTransaction-ajax', function(req, res)
 
     // Create the query and run it on the database
     query1 = `INSERT INTO BorrowingTransactions (bookID, memberID, dateBorrowed, dateDue) VALUES ('${data.bookID}', '${data.memberID}', '${data.dateBorrowed}', '${data.dateDue}');`;
+    query2 = `SELECT * from BorrowingTransactions;`
+    query3 = "Select * from Books;"
+    query4 = "SELECT memberID, CONCAT(firstName ,  \" \", lastName  ) as name from Members;"
+    
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -442,9 +451,38 @@ app.post('/add-borrowingTransaction-ajax', function(req, res)
         else
         {
           
-            query2 = `SELECT * from BorrowingTransactions;`
             db.pool.query(query2, function(error, rows, fields){
+                let transactions = rows;
+                db.pool.query(query3, function(error, row, fields){
+                    books = row;
+                   
+                db.pool.query(query4, function(error, row, fields){
+                    members = row;
 
+                    let booksmap = {}
+                    books.map(book => {
+                        let id = parseInt(book.bookID, 10);
+                        booksmap[id] = book["title"];
+                       
+                    })
+        
+                    transactions = transactions.map(transaction => {
+                        return Object.assign(transaction, {bookID: booksmap[transaction.bookID]})
+                        
+                    })
+    
+                    
+                    let membersmap = {}
+                    members.map(member => {
+                        let id = parseInt(member.memberID, 10);
+                        membersmap[id] = member["name"];
+                       
+                    })
+        
+                    transactions = transactions.map(transaction => {
+                        return Object.assign(transaction, {memberID: membersmap[transaction.memberID]})
+                        
+                    })
            
                 // If there was an error on the second query, send a 400
                 if (error) {
@@ -460,6 +498,8 @@ app.post('/add-borrowingTransaction-ajax', function(req, res)
                     res.send(rows);
                 }
             })
+        })
+    })
         }
     })
 }); 
@@ -547,11 +587,11 @@ app.delete('/delete-book-ajax/', function(req,res,next){
     let data = req.body;
     let publisherID = parseInt(data.id);
     let deletePublisher = `DELETE FROM Publishers where publisherID = '${data.id}';`;
-    let deleteBook = `Delete FROM Books where Books.publisherID = '${data.id}';`;
+    let setPublisherNull = `UPDATE Books SET publisherID = null WHERE (publisherID = '${data.id}');`;
   
   
           // Run the 1st query
-          db.pool.query(deleteBook, [publisherID], function(error, rows, fields){
+          db.pool.query(setPublisherNull, function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
