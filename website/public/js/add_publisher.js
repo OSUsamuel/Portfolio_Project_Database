@@ -1,3 +1,20 @@
+/*
+1 # Citation for the following page:
+2 # Date: 3/18/2024
+3 # Copied from /OR/ Adapted from /OR/ Based on 
+4 # Everything here and through out the other pages are copied from the link below,
+5 #   and just updated to work specifically with our own database.  Eventually we were able to 
+6 #   to code everything with out help but it still followed the same basic format of the repository
+7 # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
+
+
+
+
+
+
+
 // Get the objects we need to modify
 let addPublisherForm = document.getElementById('addPublisherFormAjax');
 
